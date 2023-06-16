@@ -6,20 +6,28 @@ namespace WebApi.Services.ServicesCharacter
                 new Character(),
                 new Character{Id=1,Name="Same"}
         };
-        public async Task<List<Character>> AddCharacter(Character newChar)
+        public async Task<ServiceResponse<List<Character>>> AddCharacter(Character newChar)
         {
+            var serviceResponse=new ServiceResponse<List<Character>>();
+
            characters.Add(newChar);
-            return characters;
+           serviceResponse.Data=characters;
+            return serviceResponse;
         }
 
-        public async Task<List<Character>> GetAllCharacters()
+        public async Task<ServiceResponse<List<Character>>> GetAllCharacters()
         {
-           return characters;
+           var serviceResponse=new ServiceResponse<List<Character>>();
+           serviceResponse.Data=characters;
+           return serviceResponse;
         }
 
-        public async Task<Character> GetCharacterById(int id)
+        public async Task<ServiceResponse<Character>> GetCharacterById(int id)
         {
-          return  characters.FirstOrDefault(x=>x.Id==id);
+          var serviceResponse=new ServiceResponse<Character>();
+          var character=characters.FirstOrDefault(x=>x.Id==id);
+          serviceResponse.Data=character;
+          return  serviceResponse;
         }
     }
 }
